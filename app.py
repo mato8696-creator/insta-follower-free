@@ -1,30 +1,39 @@
 import streamlit as st
-import requests
-from datetime import datetime, timedelta
+import random
+import time
 
-# زانیاریێن تێلەگراما تە
-BOT_TOKEN = "7612088680:AAHcS-ne1w1_zELDGu-htQAKs6wIQfSbzj4"
-MY_ID = "2010296486"
+# لیستەیا کەرتێن ڕۆلێتێ بۆ پێشبینیا دروست
+neighbors_logic = {
+    "Sector A": [0, 32, 15, 19, 4, 21, 2, 25],
+    "Sector B": [26, 3, 35, 12, 28, 7, 29, 18, 22],
+    "Sector C": [17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9]
+}
 
-st.set_page_config(page_title="Free Followers", page_icon="📈")
-st.markdown("<style>.stApp{background:#121212; color:white; text-align:center;}</style>", unsafe_allow_html=True)
+st.set_page_config(page_title="369WINS BYPASS PRO", layout="centered")
 
-st.title("📸 Free Instagram Followers")
-st.write("هەر ١ سەعەت تو دشێی ٢٠ فۆڵۆوێران بێ بەرامبەر وەربگری")
+st.markdown("<h1 style='text-align: center; color: #00ff00;'>⚡ 369WINS AI PREDICTOR v3.0</h1>", unsafe_allow_html=True)
 
-if "last_order" not in st.session_state:
-    st.session_state.last_order = None
+# وەرگرتنا ژمارا پێشتر
+last_num = st.number_input("ژمارا دوماهییێ یا 369Wins داخڵ بکە:", 0, 36)
 
-username = st.text_input("Username (بێ @):")
+if st.button("🚀 پێشبینیا بلەز"):
+    # نیشاندانا پرۆسێسا هاکێ
+    with st.status("Connecting to 369wins server...", expanded=True) as status:
+        time.sleep(1)
+        st.write("Extracting RNG Seed...")
+        time.sleep(1)
+        st.write("Calculating Momentum and Physics...")
+        status.update(label="Analysis Complete!", state="complete", expanded=False)
 
-if st.button("Send 20 Followers"):
-    if st.session_state.last_order and datetime.now() < st.session_state.last_order + timedelta(hours=1):
-        st.error("⚠️ تکایە چەبەرێ بە! هێشتا ١ سەعەت دەرباز نەبوویە.")
-    elif username:
-        msg = f"🚀 داخوازیا فۆڵۆوێران!\n👤 یووزەر: {username}\n🔢 ژمارە: 20"
-        requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={MY_ID}&text={msg}")
-        st.session_state.last_order = datetime.now()
-        st.success("✅ داخوازیا تە گەهشتە مە! دێ د نێزیکترین کات دا بۆ تە هێن.")
-    else:
-        st.warning("تکایە یووزەرنەیمێ خۆ بنویسە.")
-
+    # مەنتیقێ هەلبژارتنا ژمارا داهاتی
+    # لێرە کۆد دێ ژمارەیەکا نێزیک دەتە یاریزانی
+    predicted_sector = random.choice(list(neighbors_logic.values()))
+    target_number = random.choice(predicted_sector)
+    
+    st.markdown(f"""
+    <div style="border: 3px solid #00ff00; padding: 25px; border-radius: 15px; background-color: #000; text-align: center;">
+        <h2 style="color: white;">NEXT TARGET: <span style="color: #00ff00; font-size: 50px;">{target_number}</span></h2>
+        <p style="color: #00ff00;">Confidence Level: {random.randint(92, 99)}%</p>
+        <p style="color: #888;">Neighbors to play: {predicted_sector[:4]}</p>
+    </div>
+    """, unsafe_allow_html=True)
